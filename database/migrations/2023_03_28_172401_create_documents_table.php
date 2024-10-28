@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('documents', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->increments('id');
             $table->bigInteger('category_id');
-            $table->string('title', 60);
+            $table->string('title', 60)->nullable(false);
             $table->text('contents');
-
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable(true);
+            $table->softDeletes();
             $table->foreign('category_id')
                 ->references('id')
                 ->on('categories')
