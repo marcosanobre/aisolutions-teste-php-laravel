@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// Select - Importações
+Route::get('/importacao', [ImportacaoController::class, 'index'])->name('importacao.index');

@@ -1,0 +1,74 @@
+<x-app-layout>
+    <head>
+        <link rel="stylesheet" href="{{ asset('css/tarefas.css') }}">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Minhas Tarefas') }}
+        </h2>
+    </x-slot>
+    <script type="text/javascript">
+        function confirmDelete(event) {
+            event.preventDefault(); // Impede o envio imediato do formulário
+            let form = event.target;
+
+            Swal.fire({
+                title: 'Você confirma a Exclusão ?',
+                text: "Essa ação não pode ser desfeita!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, excluir !',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // Se confirmado, o formulário é enviado
+                }
+            });
+        }
+    </script>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <a class="action-btn create" href="{{ route('tarefa.create') }}">Nova Tarefa</a>
+                    <table class="table-tasks">
+                        <thead>
+                            <tr>
+                                <th>{{ __("Título") }}</th>
+                                <th>{{ __("Descrição") }}</th>
+                                <th>{{ __("Data de Vencimento") }}</th>
+                                <th>{{ __("Situação") }}</th>
+                                <th>{{ __("Ações") }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($tarefas as $tarefa)
+                                <tr>
+                                    <td data-label={{ __("Título") }}>{{ $tarefa['titulo'] }}</td>
+                                    <td data-label={{ __("Descrição") }}>{{ $tarefa['descricao'] }}</td>
+                                    <td data-label={{ __("Data de Vencimento") }}>{{ date('d/m/Y', strtotime($tarefa['data_vencimento']) ) }}</td>
+                                    <td data-label={{ __("Situação") }}><span class="{{ "badge-" . $classes[ array_search( $tarefa['status'], $status ) ] }}">{{ $tarefa['status'] }}</span></td>
+                                    <td data-label={{ __("Ações") }}>
+                                        <div class="hidden space-x-8 sm:-my-px sm:ms-5 sm:flex">
+                                        <a href="{{ route('tarefa.edit', $tarefa['id']) }}" class="action-btn edit">Alterar</a>
+                                        <!-- a href="#" class="action-btn delete">Excluir</a -->
+                                        <form action="{{ route('tarefa.destroy', $tarefa['id']) }}" method="POST" onsubmit="confirmDelete(event)">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="action-btn delete" type="submit">Excluir</button>
+                                        </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

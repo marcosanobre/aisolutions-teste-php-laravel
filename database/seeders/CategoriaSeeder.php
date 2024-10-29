@@ -12,10 +12,10 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('categories')->insert([
+        DB::table('categoria')->insert([
             'name' => 'Remessa Parcial'
         ]);
-        DB::table('categories')->insert([
+        DB::table('categoria')->insert([
             'name' => 'Remessa'
         ]);
     }

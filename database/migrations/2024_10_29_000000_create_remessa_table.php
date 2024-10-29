@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('remessa', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 20)->nullable(false);
+            $table->integer('exercicio_remessa')->nullable(false);
+            $table->integer('sequencial_remessa')->nullable(false);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable(true);
             $table->softDeletes();
@@ -25,6 +26,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('remessa_item');
+        Schema::dropIfExists('remessa');
     }
 };
+
