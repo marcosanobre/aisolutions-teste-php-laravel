@@ -12,7 +12,8 @@ class RemessaController extends Controller
      */
     public function index()
     {
-        //
+        $remessas = Remessa::all();
+        return view('importacao.remessas', compact('remessas') );
     }
 
     /**
@@ -62,4 +63,11 @@ class RemessaController extends Controller
     {
         //
     }
+
+    public function fetchItens(Remessa $remessa)
+    {
+        $itens = $remessa->itens; // Usa a relação definida para buscar os itens
+        return response()->json($itens); // Retorna os itens como JSON
+    }
+
 }

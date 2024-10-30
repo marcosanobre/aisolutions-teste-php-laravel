@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         if (Schema::hasTable('remessa')) { // Verifica se a tabela 'remessa' existe
+
             Schema::create('remessa_item', function (Blueprint $table) {
                 $table->increments('id');
                 $table->bigInteger('remessa_id')->nullable(false);

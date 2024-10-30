@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CategorySeeder extends Seeder
+class CategoriaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,10 +13,10 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         DB::table('categoria')->insert([
-            'name' => 'Remessa Parcial'
+            'nome' => 'Remessa Parcial'
         ]);
         DB::table('categoria')->insert([
-            'name' => 'Remessa'
+            'nome' => 'Remessa'
         ]);
     }
 }

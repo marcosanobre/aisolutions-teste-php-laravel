@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RemessaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () { return view('home'); });
 
+Route::get('/importacao', [RemessaController::class, 'index'] )->name('remessas');
 
-// Select - Importações
-Route::get('/importacao', [ImportacaoController::class, 'index'])->name('importacao.index');
+// Route::get('/importacao', function () { return view('importacao.remessas'); })->name('remessas');
+
+Route::get('/remessas/{remessa}/itens', [RemessaController::class, 'fetchItens'])->name('remessas.fetchItens');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
