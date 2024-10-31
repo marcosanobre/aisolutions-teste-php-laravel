@@ -1,0 +1,4 @@
+id,remessa_id,categoria_id,periodo_referencia,cod_documento,titulo,conteudo,created_at,updated_at,deleted_at
+1,1,2,JULHO,AK47JJ112,Documento 01,Documento 01 da Remessa 01,2024-10-31 12:47:57,,
+2,1,1,MARCO,LGO231PP7,Documento 02,Documento 02 da Remessa 01,2024-10-31 12:48:58,,
+3,2,1,MAIO,PPT30A30,Documento 01,Documento 01 da Remessa 02,2024-10-31 12:50:12,,

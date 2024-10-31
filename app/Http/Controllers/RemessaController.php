@@ -13,8 +13,35 @@ class RemessaController extends Controller
     public function index()
     {
         $remessas = Remessa::all();
-        return view('importacao.remessas', compact('remessas') );
+        return view('remessa.remessas', compact('remessas') );
     }
+
+    public function fetchItens(Remessa $remessa)
+    {
+        //$itens = $remessa->itens; // Usa a relação definida para buscar os itens
+
+        // Carregar itens da remessa juntamente com a categoria relacionada
+        $itens = $remessa->itens()->with('categoria')->get();
+        return response()->json($itens); // Retorna os itens como JSON
+    }
+
+    public function uploadJson(Request $request)
+    {
+        $request->validate([
+            'jsonFile' => 'required|file|mimes:json|max:10240'
+        ]);
+
+        // Ler o conteúdo do arquivo JSON
+        $jsonData = json_decode(file_get_contents($request->file('jsonFile')), true);
+
+        if ($jsonData === null) {
+            return response()->json(['message' => 'Arquivo JSON inválido.'], 400);
+        }
+
+        // Retorne os dados JSON para o JavaScript processar
+        return response()->json(['data' => $jsonData]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -29,7 +56,28 @@ class RemessaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validação dos dados
+        $validatedData = $request->validate([
+            'exercicio_remessa' => 'required|integer',
+            'sequencial_remessa' => 'required|integer',
+            'status' => 'required|string|max:30',
+        ]);
+
+        $logR = 'Remessa: ' . $request->exercicio_remessa . ' / ' . $request->sequencial_remessa;
+
+// var_dump($logR);
+
+        // Criar e salvar uma nova Remessa
+        $remessa = new Remessa();
+        $remessa->exercicio_remessa = $validatedData['exercicio_remessa'];
+        $remessa->sequencial_remessa = $validatedData['sequencial_remessa'];
+        $remessa->qtd_documentos = 0;
+        $remessa->status = $validatedData['status'];
+        $remessa->log = $logR;
+        $remessa->save(); // Salva a Remessa no banco de dados
+
+        // Retorne a nova Remessa como resposta JSON
+        return response()->json($remessa, 201); // 201 indica criação bem-sucedida
     }
 
     /**
@@ -62,12 +110,6 @@ class RemessaController extends Controller
     public function destroy(Remessa $remessa)
     {
         //
-    }
-
-    public function fetchItens(Remessa $remessa)
-    {
-        $itens = $remessa->itens; // Usa a relação definida para buscar os itens
-        return response()->json($itens); // Retorna os itens como JSON
     }
 
 }

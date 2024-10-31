@@ -40,7 +40,7 @@
     color: white;
     font-size: 0.9em;
     white-space: nowrap;
-} 
+}
 
 /* Badge para situação */
 .badge-criada {
@@ -174,7 +174,7 @@
 
 /* Container principal */
 .container {
-    max-width: 800px;
+    max-width: 1800px;
     margin: 50px auto;
     padding: 20px;
     background-color: #f9f9f9;

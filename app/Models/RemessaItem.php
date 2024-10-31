@@ -17,5 +17,11 @@ class RemessaItem extends Model
     {
         return $this->belongsTo(Remessa::class, 'remessa_id');
     }
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
+
 }
 

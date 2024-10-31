@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('sequencial_remessa')->nullable(false);
             $table->string('status',20);
             $table->integer('qtd_documentos')->nullable(true);
+            $table->text('log')->nullable(true);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable(true);
             $table->softDeletes();

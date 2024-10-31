@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RemessaController;
 use App\Http\Controllers\FilaTarefaController;
+use App\Http\Controllers\RemessaItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +18,15 @@ use App\Http\Controllers\FilaTarefaController;
 
 Route::get('/', function () { return view('home'); })->name('home');
 
-Route::get('/importacao', [RemessaController::class, 'index'] )->name('remessas');
+Route::get('/remessas', [RemessaController::class, 'index'] )->name('remessas');
 
-// Route::get('/importacao', function () { return view('importacao.remessas'); })->name('remessas');
+Route::get('/remessas/{remessa}/itens', [RemessaController::class, 'fetchItens'])->name('remessaitens');
 
-Route::get('/remessas/{remessa}/itens', [RemessaController::class, 'fetchItens'])->name('remessas.fetchItens');
+Route::post('/upload-remessa-json', [RemessaController::class, 'uploadJson']);
+
+Route::post('/remessa', [RemessaController::class, 'store'])->name('insereRemessa');
+
+Route::post('/remessa/{remessa}/item', [RemessaItemController::class, 'store'])->name('insereRemessaitem');
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

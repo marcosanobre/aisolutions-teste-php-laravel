@@ -23,7 +23,8 @@
 
     <!-- Scripts -->
     @yield('scripts')
-    @vite(['resources/js/app.js', 'resources/css/app.css','resources/css/datagrid.css'])
+
+    @vite(['resources/js/app.js', 'resources/css/app.css', 'resources/css/datagrid.css'])
 </head>
 
 <body class="antialiased">
