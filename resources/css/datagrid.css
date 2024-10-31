@@ -129,6 +129,16 @@
     opacity: 0.8;
 }
 
+.table-tasks .remessa-row {
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.table-tasks .remessa-row:hover {
+    opacity: 0.8;
+    background-color: #f0f0f0;
+}
+
 /* Estilos para responsividade */
 @media (max-width: 768px) {
     .table-tasks thead {

@@ -72,3 +72,27 @@
         </div>
     </div>
 </x-app-layout>
+
+
+
+    <table class="table table-bordered" id="remessaTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Exercício</th>
+                <th>Sequencial</th>
+                <th>Data de Criação</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($remessas as $remessa)
+            <tr data-id="{{ $remessa->id }}" class="remessa-row">
+                <td>{{ $remessa->id }}</td>
+                <td>{{ $remessa->exercicio_remessa }}</td>
+                <td>{{ $remessa->sequencial_remessa }}</td>
+                <td>{{ $remessa->created_at }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+
