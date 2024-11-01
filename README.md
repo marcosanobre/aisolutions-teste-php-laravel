@@ -40,11 +40,11 @@ O Projeto implementa 04 processos :
 4. Logs
 
 No modelo de dados do Projeto encontram-se o seguintes objetos :
-. Categoria
-. Remessa / RemessaItem
-. Tarefa
-. Documento / DocumentoItem
-. Log de Remessa é uma "visão"
+1. Categoria
+2. Remessa / RemessaItem
+3. Tarefa
+4. Documento / DocumentoItem
+5. Log de Remessa é uma "visão"
 
 ### Descrição Técnica Operacional:
 
