@@ -19,16 +19,16 @@ chave impede a re-importação de uma remessa.
 Cada Documento contido numa remessa, detem um COD_DOCUMENTO que é único na base de dados.
 
 Após a importação, uma remessa pode ser encontrar nos seguintes estados :
-. Processada
-. A Processar
-. Com Problemas
+1. Processada
+2. A Processar
+3. Com Problemas
 
 O fluxo operacional do sistema é dado por :
-(1) -> Remessas -> Importar Remessa - na importação a Remessa e seus Documentos são validados segundos as regras***
-(2) -> Processar -> Encaminhar Remessas válidas / sem Problemas, para a FILA DE PROCESSAMENTO
-(3) -> Fila de Tarefas -> Processar a Remessa para a atualização da base de dados de Documentos
-(4) -> Documentos -> Navegar na base de Documentos
-(5) -> Logs de Processamento -> Navegar nos Logs de processamento das Remessas
+1. -> Remessas -> Importar Remessa - na importação a Remessa e seus Documentos são validados segundos as regras***
+2. -> Processar -> Encaminhar Remessas válidas / sem Problemas, para a FILA DE PROCESSAMENTO
+3. -> Fila de Tarefas -> Processar a Remessa para a atualização da base de dados de Documentos
+4. -> Documentos -> Navegar na base de Documentos
+5. -> Logs de Processamento -> Navegar nos Logs de processamento das Remessas
 
 
 ### Descrição Técnica:
