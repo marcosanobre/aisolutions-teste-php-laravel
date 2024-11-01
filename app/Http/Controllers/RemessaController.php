@@ -9,10 +9,10 @@ use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 class RemessaController extends Controller
 {
     private function remessaExiste($exercicio, $sequencial)
-    {   
+    {
         $remessa = Remessa::where('exercicio_remessa', '=', $exercicio)
                             ->where('sequencial_remessa','=',$sequencial)
-                            ->get();                            
+                            ->get();
         return $remessa->isEmpty() ? false : true;
     }
 
@@ -51,15 +51,6 @@ class RemessaController extends Controller
         return response()->json(['data' => $jsonData]);
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -93,35 +84,22 @@ class RemessaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display a listing of the resource.
      */
-    public function show(Remessa $remessa)
+    public function showLogs()
     {
-        //
+        $remessas = Remessa::all();
+        return view('logs_remessa.logs', compact('remessas') );
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display a listing of the resource.
      */
-    public function edit(Remessa $remessa)
+    public function showLogRemessa(Request $request, $remessaId)
     {
-        //
-    }
+        $remessa = Remessa::find($remessaId);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Remessa $remessa)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Remessa $remessa)
-    {
-        //
+        return view('logs_remessa.logitem', compact('remessa') );
     }
 
 }

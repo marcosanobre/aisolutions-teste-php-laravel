@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RemessaController;
+use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\FilaTarefaController;
 use App\Http\Controllers\RemessaItemController;
 
@@ -31,10 +32,25 @@ Route::post('/remessa', [RemessaController::class, 'store'])->name('insereRemess
 
 Route::post('/remessa/{remessa}/item', [RemessaItemController::class, 'store'])->name('insereRemessaitem');
 
-// TAREFAS 
+// TAREFAS
+
+Route::get('/filatarefa/processaTarefa/{filatarefa}', [FilaTarefaController::class, 'processaTarefa'])->name('filatarefa.processaTarefa');
+
+Route::get('/filatarefa/insereRemessa/{remessa}', [FilaTarefaController::class, 'insereTarefa'])->name('filatarefa.insereTarefa');
 
 Route::get('/tarefas', [FilaTarefaController::class, 'index'] )->name('tarefas');
 
-Route::get('/filatarefa/{remessa}', [FilaTarefaController::class, 'insereTarefa'])->name('filatarefa.insereTarefa');
+// DOCUMENTOS
 
-Route::get('/filatarefa', [FilaTarefaController::class, 'create'])->name('filatarefa.create');
+Route::get('/documentos', [DocumentoController::class, 'index'] )->name('documentos');
+
+Route::get('/documento/{doc}/itens', [DocumentoController::class, 'fetchItens'])->name('documentoitens');
+
+Route::get('/documento/{doc}', [DocumentoController::class, 'showDocumento'])->name('documentoshow');
+
+// LOGS
+
+Route::get('/logs', [RemessaController::class, 'showLogs'] )->name('logs');
+
+Route::get('/log/{remessa}', [RemessaController::class, 'showLogRemessa'])->name('logshow');
+

@@ -38,7 +38,7 @@
                                     <td data-label={{ __("Ação") }}>
                                         <div class="hidden space-x-8 sm:-my-px sm:ms-5 sm:flex">
                                             @if ($remessa['status'] == 'Registrada')
-                                                <a href="{{ route('filatarefa.insereTarefa', $remessa['id']) }}" class="action-btn edit">Processa</a -->
+                                                <a href="{{ route('filatarefa.insereTarefa', $remessa['id']) }}" class="action-btn edit">Processa</a>
                                             @endif
                                         </div>
                                     </td>
@@ -51,7 +51,7 @@
         </div>
     </div>
 
-    <h2>Itens da Remessa Selecionada</h2>
+    <h2>Documentos na Remessa Selecionada</h2>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -60,7 +60,6 @@
                     <table  class="table-tasks" id="remessaItensTable">
                         <thead>
                             <tr>
-                                <th>Remessa</th>
                                 <th>Categoria</th>
                                 <th>Período de Referência</th>
                                 <th>Código Documento</th>
@@ -95,16 +94,15 @@
                     success: function(data) {
                         // Limpar o grid de RemessaItem
                         $('#remessaItensTable tbody').empty();
-
                         // Iterar sobre os itens retornados e adicioná-los ao grid de RemessaItem
                         data.forEach(function(item) {
+                            let conteudo = item.conteudo;
                             var row = '<tr>' +
-                                '<td>' + item.remessa_id + '</td>' +
                                 '<td>' + (item.categoria_id ? item.categoria.nome : 'N/A') + '</td>' +
                                 '<td>' + item.periodo_referencia + '</td>' +
                                 '<td>' + item.cod_documento + '</td>' +
                                 '<td>' + item.titulo + '</td>' +
-                                '<td>' + item.conteudo + '</td>' +
+                                '<td>' + conteudo.substring(0,50) + '</td>' +
                                 '</tr>';
                             $('#remessaItensTable tbody').append(row);
                         });
@@ -142,6 +140,8 @@
                         // alert('Arquivo JSON enviado com sucesso!');
                         // Aqui você pode processar o JSON ou chamar uma função para usar o JSON em requisições
                         processRemessaData(response.data);
+                        const url = "/remessas";
+                        $(location).attr('href',url);
                     },
                     error: function(xhr, status, error) {
                         console.error('Erro no upload do JSON:', error);

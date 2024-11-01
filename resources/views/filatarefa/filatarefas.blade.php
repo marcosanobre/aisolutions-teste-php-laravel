@@ -29,14 +29,14 @@
                         <tbody>
                             @foreach ($tarefas as $tarefa)
                                 <tr data-id="{{ $tarefa->id }}" class="tarefa-row">
-                                    <td data-label={{ __("Remessa") }}>{{ $tarefa['exercicio_tarefa'] }}</td>
-                                    <td data-label={{ __("Qtd Docmtos") }}>{{ $tarefa['qtd_documentos'] }}</td>
+                                    <td data-label={{ __("Remessa") }}>{{ $tarefa->remessa->exercicio_remessa.' | '.$tarefa->remessa->sequencial_remessa }}</td>
+                                    <td data-label={{ __("Qtd Docmtos") }}>{{ $tarefa->remessa->qtd_documentos }}</td>
                                     <td data-label={{ __("Dt Processamento") }}>{{ date('d/m/Y', strtotime($tarefa['created_at']) ) }}</td>
                                     <td data-label={{ __("Situação") }}>{{ $tarefa['status'] }}</span></td>
                                     <td data-label={{ __("Ação") }}>
                                         <div class="hidden space-x-8 sm:-my-px sm:ms-5 sm:flex">
                                             @if ($tarefa['status'] == 'Em Fila')
-                                                <a href="{{ route('filatarefa.insereTarefa', $tarefa['id']) }}" class="action-btn edit">Processa</a -->
+                                                <a href="{{ route('filatarefa.processaTarefa', $tarefa['id']) }}" class="action-btn edit">Processa Tarefa</a -->
                                             @endif
                                         </div>
                                     </td>
