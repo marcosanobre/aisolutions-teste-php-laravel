@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Remessa;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 
 class RemessaController extends Controller
 {
+    private function remessaExiste($exercicio, $sequencial)
+    {   
+        $remessa = Remessa::where('exercicio_remessa', '=', $exercicio)
+                            ->where('sequencial_remessa','=',$sequencial)
+                            ->get();                            
+        return $remessa->isEmpty() ? false : true;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -56,28 +65,31 @@ class RemessaController extends Controller
      */
     public function store(Request $request)
     {
-        // Validação dos dados
-        $validatedData = $request->validate([
-            'exercicio_remessa' => 'required|integer',
-            'sequencial_remessa' => 'required|integer',
-            'status' => 'required|string|max:30',
-        ]);
+        if( ! $this->remessaExiste($request->exercicio_remessa, $request->sequencial_remessa) )
+        {
+            // Validação dos dados
+            $validatedData = $request->validate([
+                'exercicio_remessa' => 'required|integer',
+                'sequencial_remessa' => 'required|integer',
+                'status' => 'required|string|max:30',
+            ]);
 
-        $logR = 'Remessa: ' . $request->exercicio_remessa . ' / ' . $request->sequencial_remessa;
+            $logR = 'Remessa: ' . $request->exercicio_remessa . ' / ' . $request->sequencial_remessa;
 
-// var_dump($logR);
+            // Criar e salvar uma nova Remessa
+            $remessa = new Remessa();
+            $remessa->exercicio_remessa = $validatedData['exercicio_remessa'];
+            $remessa->sequencial_remessa = $validatedData['sequencial_remessa'];
+            $remessa->qtd_documentos = 0;
+            $remessa->status = $validatedData['status'];
+            $remessa->log = $logR;
+            $remessa->save(); // Salva a Remessa no banco de dados
 
-        // Criar e salvar uma nova Remessa
-        $remessa = new Remessa();
-        $remessa->exercicio_remessa = $validatedData['exercicio_remessa'];
-        $remessa->sequencial_remessa = $validatedData['sequencial_remessa'];
-        $remessa->qtd_documentos = 0;
-        $remessa->status = $validatedData['status'];
-        $remessa->log = $logR;
-        $remessa->save(); // Salva a Remessa no banco de dados
-
-        // Retorne a nova Remessa como resposta JSON
-        return response()->json($remessa, 201); // 201 indica criação bem-sucedida
+            // Retorne a nova Remessa como resposta JSON
+            return response()->json($remessa, 201); // 201 indica criação bem-sucedida
+        };
+        $returnData = ['status' => 'error', 'message' => 'Remessa já Importada !!!'];
+        return  response()->json($returnData, 422);
     }
 
     /**

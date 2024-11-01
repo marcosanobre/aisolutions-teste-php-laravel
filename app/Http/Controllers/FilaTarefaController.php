@@ -13,23 +13,10 @@ class FilaTarefaController extends Controller
     /**
      * Datagrid da Fila.
      */
-    public function insereTarefa($idRemessa)
-    {
-        $remessa = Remessa::find($idRemessa);
-        $label_remessa = $remessa->exercicio_remessa . '|' . $remessa->sequencial_remessa ;
-var_dump($label_remessa);
-die();        
-        // Recupera a Remessa e registra na Fila
-        // Invoca o dataGrid da Fila
-        return view("filatarefas.filatarefas");
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $tarefas = FilaTarefa::all();
+        return view('filatarefa.filatarefas', compact('tarefas') );
     }
 
     /**
@@ -43,9 +30,13 @@ die();
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function insereTarefa(Request $request, $remessaId)
     {
-        //
+        $tarefa = new FilaTarefa();
+        $tarefa->status = 'Em Fila';
+        $tarefa->remessa_id = $remessaId;
+        $tarefa->save();
+        return redirect('/tarefas');
     }
 
     /**

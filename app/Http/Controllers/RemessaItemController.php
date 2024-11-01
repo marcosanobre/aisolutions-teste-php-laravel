@@ -29,7 +29,7 @@ class RemessaItemController extends Controller
      */
     public function store(Request $request)
     {
-        $meses = array( 'janeiro', 'fevereiro', 'marÇo', 'marco', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outrubro', 'novembro', 'dezembro');
+        $meses = ['janeiro', 'fevereiro', 'marÇo', 'marco', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outrubro', 'novembro', 'dezembro'];
 
         $remessa_id             = $request->remessa_id;
         $categoria              = $request->categoria ;

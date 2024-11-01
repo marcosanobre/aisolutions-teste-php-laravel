@@ -16,8 +16,6 @@
                         <button id="uploadBtn" class="action-btn create">Importa Remessa</button>
                     </div>
 
-                    <!-- a class="action-btn create" href="{ { route('filatarefa.create') }}">Importação</a -->
-
                     <table class="table-tasks" id="remessaTable">
                         <thead>
                             <tr>
@@ -192,7 +190,10 @@
                     });
                 },
                 error: function(xhr, status, error) {
-                    console.error('Erro ao criar Remessa:', error);
+                    reme = data.exercicio + ' | ' + data.sequencia;
+                    msg  = 'Remessa: ' + reme + ' já existente !!!'
+                    alert(msg);
+                    //console.error('Erro ao criar Remessa:', error);
                 }
             });
         }

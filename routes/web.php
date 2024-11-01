@@ -18,6 +18,9 @@ use App\Http\Controllers\RemessaItemController;
 
 Route::get('/', function () { return view('home'); })->name('home');
 
+
+// REMESSAS
+
 Route::get('/remessas', [RemessaController::class, 'index'] )->name('remessas');
 
 Route::get('/remessas/{remessa}/itens', [RemessaController::class, 'fetchItens'])->name('remessaitens');
@@ -28,7 +31,9 @@ Route::post('/remessa', [RemessaController::class, 'store'])->name('insereRemess
 
 Route::post('/remessa/{remessa}/item', [RemessaItemController::class, 'store'])->name('insereRemessaitem');
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// TAREFAS 
+
+Route::get('/tarefas', [FilaTarefaController::class, 'index'] )->name('tarefas');
 
 Route::get('/filatarefa/{remessa}', [FilaTarefaController::class, 'insereTarefa'])->name('filatarefa.insereTarefa');
 
